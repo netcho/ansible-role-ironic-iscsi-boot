@@ -6,6 +6,11 @@
     create: yes
   notify: Rebuild dracut image
 
+- name: Dumping current partitions
+  ansible.builtin.debug:
+    var: ansible_devices
+    verbosity: 2
+
 - name: Creating EFI system partition
   become: yes
   community.general.parted:
@@ -17,6 +22,7 @@
     flags:
       - efi
     fs_type: fat32
+    unit: MiB
   notify: Rebuild GRUB configuration
 
 - name: Mounting EFI system partition
