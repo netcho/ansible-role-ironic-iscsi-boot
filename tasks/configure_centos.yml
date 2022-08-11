@@ -19,7 +19,7 @@
     part_start: -256MiB
     state: present
     flags:
-      - efi
+      - esp
     fs_type: fat32
     unit: MiB
   notify: Rebuild GRUB configuration
