@@ -8,7 +8,12 @@
   ansible.builtin.command: /usr/bin/dracut -f
   listen: Rebuild dracut image
 
-- name: Updating GRUB configuration
+- name: Updating GRUB BIOS configuration
   become: true
   ansible.builtin.command: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+  listen: Rebuild GRUB configuration
+
+- name: Updating GRUB EFI configuration
+  become: true
+  ansible.builtin.command: /usr/sbin/grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
   listen: Rebuild GRUB configuration
