@@ -16,7 +16,6 @@
   community.general.parted:
     device: /dev/sda
     number: 2
-    name: ESP
     part_start: -256MiB
     state: present
     flags:
