@@ -2,3 +2,13 @@
   become: true
   ansible.builtin.command: /usr/sbin/update-initramfs -u
   listen: Update initramfs
+
+- name: Rebuilding dracut image
+  become: true
+  ansible.builtin.command: /usr/bin/dracut -f
+  listen: Rebuild dracut image
+
+- name: Updating GRUB configuration
+  become: true
+  ansible.builtin.command: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+  listen: Rebuild GRUB configuration

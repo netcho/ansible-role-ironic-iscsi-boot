@@ -1,0 +1,14 @@
+- name: Adding required dracut modules
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/dracut.conf.d/iscsi-boot.conf
+    lineinfile: add_dracutmodules+="network iscsi"
+    create: yes
+  notify: Rebuild dracut image
+
+- name: Configuring GRUB kernel command line
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    lineinfile: GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT rd.iscsi.firmware=1"
+  notify: Rebuild GRUB configuration
