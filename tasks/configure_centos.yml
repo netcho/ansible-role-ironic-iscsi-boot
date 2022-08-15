@@ -17,7 +17,7 @@
     device: /dev/sda
     number: 2
     part_start: -256MiB
-    fstype: fat32
+    fs_type: fat32
     state: present
     unit: MiB
   notify: Rebuild GRUB configuration
