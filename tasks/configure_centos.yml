@@ -17,6 +17,7 @@
     device: /dev/sda
     number: 2
     part_start: -256MiB
+    fstype: fat32
     state: present
     unit: MiB
   notify: Rebuild GRUB configuration
@@ -24,15 +25,6 @@
 - name: Changing EFI system partition type
   become: yes
   ansible.builtin.command: sfdisk -c /dev/sda 2 ef
-  notify: Rebuild GRUB configuration
-
-- name: Creating FAT filesystem on the ESP
-  become: yes
-  community.general.filesystem:
-    device: /dev/sda2
-    fstype: vfat
-    opts: -F 32
-    state: present
   notify: Rebuild GRUB configuration
 
 - name: Mounting EFI system partition
