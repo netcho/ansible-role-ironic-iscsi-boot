@@ -33,7 +33,7 @@
     path: /boot/efi/
     src: /dev/sda2
     state: mounted
-    fstype: fat32
+    fstype: vfat
   notify: Rebuild GRUB configuration
 
 - name: Installing GRUB EFI package
