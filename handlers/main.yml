@@ -2,11 +2,15 @@
   become: true
   ansible.builtin.command: /usr/sbin/update-initramfs -u
   listen: Update initramfs
+  when:
+    - ansible_os_family == "Debian"
 
 - name: Rebuilding dracut image
   become: true
   ansible.builtin.command: /usr/bin/dracut -f
   listen: Rebuild dracut image
+  when:
+    - ansible_os_family == "RedHat"
 
 - name: Updating GRUB BIOS configuration
   become: true
