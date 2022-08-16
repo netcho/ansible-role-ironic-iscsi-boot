@@ -6,44 +6,6 @@
     create: yes
   notify: Rebuild dracut image
 
-- name: Dumping current partitions
-  ansible.builtin.debug:
-    var: ansible_devices
-    verbosity: 3
-
-- name: Creating EFI system partition
-  become: yes
-  community.general.parted:
-    device: /dev/sda
-    number: 2
-    part_start: -256MiB
-    fs_type: fat32
-    state: present
-    unit: MiB
-  notify: Rebuild GRUB configuration
-
-- name: Changing EFI system partition type
-  become: yes
-  ansible.builtin.command: sfdisk -c /dev/sda 2 ef
-  notify: Rebuild GRUB configuration
-
-- name: Mounting EFI system partition
-  become: yes
-  ansible.posix.mount:
-    path: /boot/efi/
-    src: /dev/sda2
-    state: mounted
-    fstype: vfat
-  notify: Rebuild GRUB configuration
-
-- name: Installing GRUB EFI package
-  become: yes
-  ansible.builtin.yum:
-    name:
-      - grub2-efi
-      - shim
-  notify: Rebuild GRUB configuration
-
 - name: Configuring GRUB kernel command line
   become: yes
   ansible.builtin.lineinfile:
