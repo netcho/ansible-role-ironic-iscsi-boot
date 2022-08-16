@@ -1,2 +1,19 @@
 - name: Performing distribution-specific tasks
   include_tasks: "configure_{{ ansible_distribution | lower }}.yml"
+
+- name: Configuring iscsid
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/iscsi/iscsid.conf
+    search_string: "{{ item.search_string }}"
+    line: "{{ item.new_line }}"
+  loop:
+    - search_string: node.session.timeo.replacement_timeout
+      new_line: node.session.timeo.replacement_timeout = -1
+    - search_string: node.conn[0].timeo.noop_out_interval
+      new_line: node.conn[0].timeo.noop_out_interval = 1
+    - search_string: node.conn[0].timeo.noop_out_timeout
+      new_line: node.conn[0].timeo.noop_out_timeout = 1
+  notify:
+    - Update initramfs
+    - Rebuild dracut image
