@@ -10,5 +10,5 @@
   become: yes
   ansible.builtin.lineinfile:
     path: /etc/default/grub
-    line: GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT rd.iscsi.firmware=1"
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT rd.iscsi.firmware=1 ip={{ "dhcp" if (ansible_distribution_major_version | int) <= 7 else "single-dhcp" }}"'
   notify: Rebuild GRUB configuration
