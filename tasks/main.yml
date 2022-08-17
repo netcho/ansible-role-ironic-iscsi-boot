@@ -7,6 +7,7 @@
     path: /etc/iscsi/iscsid.conf
     search_string: "{{ item.search_string }}"
     line: "{{ item.new_line }}"
+    mode: 0644
   loop:
     - search_string: node.session.timeo.replacement_timeout
       new_line: node.session.timeo.replacement_timeout = -1
