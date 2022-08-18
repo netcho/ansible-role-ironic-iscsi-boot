@@ -1,10 +1,13 @@
-- name: Adding required dracut modules
+- name: Adding iSCSI dracut configuration
   become: yes
   ansible.builtin.lineinfile:
     path: /etc/dracut.conf.d/iscsi-boot.conf
-    line: add_dracutmodules+="network iscsi"
+    line: "{{ item }}"
     create: yes
   notify: Rebuild dracut image
+  loop:
+    - add_dracutmodules+="network iscsi"
+    - install_optional_items+="/etc/udev/rules.d/70-persistent-net.rules /etc/iscsi/iscsid.conf"
 
 - name: Configuring GRUB kernel command line
   become: yes
