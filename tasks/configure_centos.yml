@@ -4,7 +4,6 @@
     path: /etc/dracut.conf.d/iscsi-boot.conf
     line: "{{ item }}"
     create: yes
-  notify: Rebuild dracut image
   loop:
     - add_dracutmodules+="network iscsi"
     - install_optional_items+="/etc/udev/rules.d/70-persistent-net.rules /etc/iscsi/iscsid.conf"
@@ -16,3 +15,10 @@
     path: /etc/default/grub
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT rd.iscsi.firmware=1 ip={{ netboot_interface_name }}:dhcp"'
   notify: Rebuild GRUB configuration
+
+- name: Patching dracut to not enable iBFT when building initrd images
+  become: yes
+  ansible.builtin.replace:
+    path: /usr/lib/dracut/modules.d/95iscsi/module-setup.sh
+    regexp: ip=ibft
+    replace: " "
