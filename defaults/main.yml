@@ -1,2 +1,3 @@
 ---
 # defaults file for ironic_iscsi_boot
+netboot_interface_name: "mgmt0"
