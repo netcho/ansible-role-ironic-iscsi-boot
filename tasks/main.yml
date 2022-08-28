@@ -1,6 +1,3 @@
-- name: Performing distribution-specific tasks
-  include_tasks: "configure_{{ ansible_distribution | lower }}.yml"
-
 - name: Configuring iscsid
   become: yes
   ansible.builtin.lineinfile:
@@ -18,3 +15,6 @@
   notify:
     - Update initramfs
     - Rebuild dracut image
+
+- name: Performing distribution-specific tasks
+  include_tasks: "configure_{{ ansible_distribution | lower }}.yml"

@@ -20,12 +20,12 @@
     path: /etc/initramfs-tools/modules
     create: true
     line: "{{ module }}"
-  notify: Update initramfs
   loop:
     - bnxt_en
     - igb
   loop_control:
     loop_var: module
+  notify: Update initramfs
   when:
     - ansible_distribution_major_version | int == 18
 
