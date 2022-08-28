@@ -19,7 +19,7 @@
 
 - name: Updating GRUB EFI configuration
   become: true
-  ansible.builtin.command: /usr/sbin/grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
+  ansible.builtin.command: "/usr/sbin/grub2-mkconfig -o /boot/efi/EFI/{{ ansible_distribution | lower }}/grub.cfg"
   listen: Rebuild GRUB configuration
 
 - name: Correcting EFI GRUB commands on CentOS 7
