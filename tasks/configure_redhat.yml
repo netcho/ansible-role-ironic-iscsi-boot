@@ -5,8 +5,8 @@
     line: "{{ item }}"
     create: yes
   loop:
-    - add_dracutmodules+="network iscsi"
-    - install_optional_items+="/etc/udev/rules.d/70-persistent-net.rules /etc/iscsi/iscsid.conf"
+    - add_dracutmodules+=" network iscsi "
+    - install_optional_items+=" /etc/udev/rules.d/70-persistent-net.rules /etc/iscsi/iscsid.conf "
   notify: Rebuild dracut image
 
 - name: Configuring GRUB kernel command line
