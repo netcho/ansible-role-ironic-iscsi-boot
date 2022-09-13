@@ -7,7 +7,7 @@
 
 - name: Rebuilding dracut image
   become: true
-  ansible.builtin.command: /usr/bin/dracut -f -N -v
+  ansible.builtin.command: /usr/bin/dracut -f -v
   listen: Rebuild dracut image
   when:
     - ansible_os_family == "RedHat"
