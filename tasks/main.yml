@@ -16,5 +16,18 @@
     - Update initramfs
     - Rebuild dracut image
 
+- name: Setting the _netdev option for mounts
+  become: yes
+  ansible.builtin.replace:
+    path: /etc/fstab
+    regexp: "defaults"
+    replace: "defaults,_netdev"
+
+- name: Disabling cloud-init network activation
+  become: yes
+  ansible.builtin.copy:
+    dest: /etc/cloud/cloud.cfg.d/
+    src: 11_network_activate.cfg
+
 - name: Performing distribution-specific tasks
   include_tasks: "configure_{{ ansible_os_family | lower }}.yml"
