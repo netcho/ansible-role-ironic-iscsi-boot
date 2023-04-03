@@ -13,7 +13,7 @@
   become: yes
   ansible.builtin.lineinfile:
     path: /etc/default/grub
-    line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT rd.iscsi.firmware=1 ip={{ netboot_interface_name }}:dhcp network-config=disabled"'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT rd.iscsi.firmware=1 ip={{ netboot_interface_name }}:dhcp"'
   notify: Rebuild GRUB configuration
 
 - name: Patching dracut to not enable iBFT when building initrd images
